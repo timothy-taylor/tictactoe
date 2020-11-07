@@ -2,12 +2,13 @@
 
 # creating an instance of this class starts the game
 class Game
-  # the grid looks like this:
+
+  # the grid structure:
   # [0,1,2]
   # [3,4,5]
   # [6,7,8]
 
-  @@winning_combos = [[0, 1, 2], [3, 4, 5], [6, 7, 8],
+  WINNING_COMBOS = [[0, 1, 2], [3, 4, 5], [6, 7, 8],
                       [0, 3, 6], [1, 4, 7], [2, 5, 8],
                       [0, 4, 8], [2, 4, 6]]
 
@@ -25,6 +26,7 @@ class Game
 
   def print_grid
     column = '|'
+    # fg = formatted grid, replacing all nil values
     fg = @grid.map { |e| e || '-' }
     puts "\n"
     puts "\t#{fg[0]}#{column}#{fg[1]}#{column}#{fg[2]}"
@@ -63,12 +65,12 @@ class Game
   end
 
   def game_over_conditions
-    if @@winning_combos.any? do |combo|
+    if WINNING_COMBOS.any? do |combo|
       combo.all? { |position| @grid[position] == 'X' }
     end
       @game_over = true
       puts "Player X wins on turn #{@turn_number}!"
-    elsif @@winning_combos.any? do |combo|
+    elsif WINNING_COMBOS.any? do |combo|
       combo.all? { |position| @grid[position] == 'O' }
     end
       @game_over = true
